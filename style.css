@@ -1,0 +1,91 @@
+/* 页面基础样式 */
+/* style.css (修改后的样式) */
+
+/* 1. 调整 body 样式 */
+body {
+    font-family: sans-serif;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    background-color: #f0f0f0;
+    margin: 0;
+    /* 确保 body 宽度能延伸（虽然 min-height 已经设置了高度，但最好明确宽度） */
+    width: 100%; 
+}
+
+/* 2. 调整 .game-container 样式 */
+.game-container {
+    text-align: center;
+    background: white;
+    padding: 30px;
+    border-radius: 10px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    
+    /* === 关键修改：增加宽度限制 === */
+    /* 设置一个最大的宽度，让它在电脑上不会太宽，但比原来宽很多 */
+    max-width: 600px; 
+    /* 设置最小宽度，确保在手机上也有足够空间 */
+    min-width: 320px; 
+    /* 增加左右边距，让它不紧贴屏幕边缘 */
+    margin: 20px; 
+    /* 让内容占据 max-width 设定的空间 */
+    width: 90%; 
+}
+
+
+
+/* 硬币容器样式 */
+/* style.css (硬币容器样式) */
+#coin {
+    width: 150px;
+    height: 150px;
+    margin: 20px auto;
+    /* 移除 overflow: hidden; */
+    
+    /* === 核心修改：增加透视效果 === */
+    /* perspective 属性定义了用户与 3D 元素之间的距离，数字越大，透视效果越弱 */
+    perspective: 500px; 
+}
+
+#coin-face {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    /* 确保内部元素也保持 3D 效果 */
+    transform-style: preserve-3d; 
+    
+    /* 暂时移除原来的 transition: transform 0.2s; */
+    /* transition: transform 0.2s; */
+}
+
+/* 抛掷按钮 */
+#flip-button {
+    padding: 10px 20px;
+    font-size: 1.2em;
+    cursor: pointer;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    margin-top: 10px;
+}
+
+#flip-button:disabled {
+    background-color: #a0c9ff;
+    cursor: not-allowed;
+}
+
+/* =========================================================
+   核心动画：通过 CSS 实现硬币的抛物线运动
+   ========================================================= */
+
+
+/* style.css (新的 3D 动画关键帧) */
+
+#result {
+    margin-top: 20px;
+    font-size: 1.1em;
+    font-weight: bold;
+    color: #333;
+}

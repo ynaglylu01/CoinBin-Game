@@ -60,6 +60,7 @@ body {
 }
 
 /* 抛掷按钮 */
+/* style.css (在 #flip-button 中添加这一行) */
 #flip-button {
     padding: 10px 20px;
     font-size: 1.2em;
@@ -69,6 +70,18 @@ body {
     border: none;
     border-radius: 5px;
     margin-top: 10px;
+    
+    /* === 核心修改：禁用长按选择和默认菜单 === */
+    user-select: none; 
+    -webkit-user-select: none; /* 兼容旧版 Safari/iOS 浏览器 */
+    touch-action: manipulation; /* 优化触摸和手势处理 */
+}
+
+/* 推荐：也为硬币元素添加，防止在蓄力时误触硬币也弹出菜单 */
+#coin {
+    /* ... 保持原有样式 ... */
+    user-select: none; 
+    -webkit-user-select: none;
 }
 
 #flip-button:disabled {

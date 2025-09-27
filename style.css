@@ -1,7 +1,4 @@
 /* 页面基础样式 */
-/* style.css (修改后的样式) */
-
-/* 1. 调整 body 样式 */
 body {
     font-family: sans-serif;
     display: flex;
@@ -10,8 +7,12 @@ body {
     min-height: 100vh;
     background-color: #f0f0f0;
     margin: 0;
-    /* 确保 body 宽度能延伸（虽然 min-height 已经设置了高度，但最好明确宽度） */
     width: 100%; 
+    
+    /* === 核心修改 1: 全局禁用文本选择 (应用于 body) === */
+    user-select: none; 
+    -webkit-user-select: none; 
+    touch-action: manipulation; 
 }
 
 /* 2. 调整 .game-container 样式 */
@@ -22,45 +23,42 @@ body {
     border-radius: 10px;
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
     
-    /* === 关键修改：增加宽度限制 === */
-    /* 设置一个最大的宽度，让它在电脑上不会太宽，但比原来宽很多 */
+    /* 宽度设置 */
     max-width: 600px; 
-    /* 设置最小宽度，确保在手机上也有足够空间 */
     min-width: 320px; 
-    /* 增加左右边距，让它不紧贴屏幕边缘 */
     margin: 20px; 
-    /* 让内容占据 max-width 设定的空间 */
     width: 90%; 
 }
 
-
+/* === 核心修改 2: 禁用 game-container 内所有元素的文本选择 === */
+/* 这个选择器可以保证 h1, p#result 等元素的长按选择也被禁用 */
+.game-container * {
+    user-select: none; 
+    -webkit-user-select: none;
+    touch-action: manipulation;
+}
 
 /* 硬币容器样式 */
-/* style.css (硬币容器样式) */
 #coin {
-    width: 150px;
-    height: 150px;
-    margin: 20px auto;
-    /* 移除 overflow: hidden; */
-    
-    /* === 核心修改：增加透视效果 === */
-    /* perspective 属性定义了用户与 3D 元素之间的距离，数字越大，透视效果越弱 */
+    /* 硬币尺寸增大到 200px */
+    width: 200px;
+    height: 200px;
+    margin: 30px auto; 
     perspective: 500px; 
+    
+    /* 保持 user-select，作为双重保障 */
+    user-select: none; 
+    -webkit-user-select: none;
 }
 
 #coin-face {
     width: 100%;
     height: 100%;
     object-fit: contain;
-    /* 确保内部元素也保持 3D 效果 */
     transform-style: preserve-3d; 
-    
-    /* 暂时移除原来的 transition: transform 0.2s; */
-    /* transition: transform 0.2s; */
 }
 
 /* 抛掷按钮 */
-/* style.css (在 #flip-button 中添加这一行) */
 #flip-button {
     padding: 10px 20px;
     font-size: 1.2em;
@@ -71,17 +69,10 @@ body {
     border-radius: 5px;
     margin-top: 10px;
     
-    /* === 核心修改：禁用长按选择和默认菜单 === */
+    /* 保持长按禁用属性 */
     user-select: none; 
-    -webkit-user-select: none; /* 兼容旧版 Safari/iOS 浏览器 */
-    touch-action: manipulation; /* 优化触摸和手势处理 */
-}
-
-/* 推荐：也为硬币元素添加，防止在蓄力时误触硬币也弹出菜单 */
-#coin {
-    /* ... 保持原有样式 ... */
-    user-select: none; 
-    -webkit-user-select: none;
+    -webkit-user-select: none; 
+    touch-action: manipulation; 
 }
 
 #flip-button:disabled {
@@ -89,16 +80,18 @@ body {
     cursor: not-allowed;
 }
 
-/* =========================================================
-   核心动画：通过 CSS 实现硬币的抛物线运动
-   ========================================================= */
-
-
-/* style.css (新的 3D 动画关键帧) */
-
+/* 结果文字样式 */
 #result {
     margin-top: 20px;
     font-size: 1.1em;
     font-weight: bold;
     color: #333;
+    /* 继承自 .game-container *，但单独设置也可以 */
 }
+
+/* =========================================================
+   核心动画：注意：@keyframes 应该由 JavaScript 动态生成
+   ========================================================= */
+
+/* 静态动画已被 JS 替换，此处不再需要 @keyframes coinToss */
+/* 仅保留 #coin-face 的 3D 转换设置 */

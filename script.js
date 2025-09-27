@@ -149,3 +149,21 @@ flipButton.addEventListener('touchstart', handlePressStart);
 // 鼠标松开事件 (兼容PC和手机)
 flipButton.addEventListener('mouseup', handlePressEnd);
 flipButton.addEventListener('touchend', handlePressEnd);
+// =========================================================
+// 4. 解决手机长按弹出菜单问题的代码
+// =========================================================
+
+// 监听硬币按钮上的 contextmenu 事件
+flipButton.addEventListener('contextmenu', function(e) {
+    // 阻止浏览器的默认行为，即阻止弹出“复制、搜索”等菜单
+    e.preventDefault();
+});
+
+
+// 建议：如果用户长按页面其他区域也会中断，可以监听整个游戏容器
+const gameContainer = document.querySelector('.game-container');
+if (gameContainer) {
+    gameContainer.addEventListener('contextmenu', function(e) {
+        e.preventDefault();
+    });
+}
